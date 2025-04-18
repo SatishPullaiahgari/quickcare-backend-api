@@ -3,6 +3,18 @@ import { db } from '../../config.db/mySQLconnect';
 import { generateId } from '../utils/generateIds';
 import { generateToken } from '../utils/generate-jwt-token';
 
+// Use the CustomError class
+class CustomError extends Error {
+  code: string;
+
+  constructor(message: string, code: string) {
+    super(message);
+    this.name = this.constructor.name;
+    this.code = code;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
 export const registerUserService = async (username: string, email: string, password: string, role: string) => {
   // Check if user already exists with the same role
   const [existingUser]: any = await db.query(
@@ -12,10 +24,12 @@ export const registerUserService = async (username: string, email: string, passw
 
   if (existingUser.length > 0) {
     if (existingUser[0].username === username) {
-      throw new Error('Username already registered under this role');
+      // Throw custom error with a code
+      throw new CustomError('Username already registered under this role', 'USERNAME_ALREADY_REGISTERED');
     }
     if (existingUser[0].email === email) {
-      throw new Error('Email already registered under this role');
+      // Throw custom error with a code
+      throw new CustomError('Email already registered under this role', 'EMAIL_ALREADY_REGISTERED');
     }
   }
 
