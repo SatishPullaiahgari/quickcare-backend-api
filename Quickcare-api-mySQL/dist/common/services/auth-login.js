@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUserService = void 0;
-const bcyptjs_1 = __importDefault(require("bcyptjs"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const mySQLconnect_1 = require("../../config.db/mySQLconnect");
 const generate_jwt_token_1 = require("../utils/generate-jwt-token");
 const loginUserService = (username, email, password, role) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,7 +22,7 @@ const loginUserService = (username, email, password, role) => __awaiter(void 0, 
         throw new Error('User with this role not found');
     }
     const user = rows[0];
-    const isMatch = yield bcyptjs_1.default.compare(password, user.password);
+    const isMatch = yield bcryptjs_1.default.compare(password, user.password);
     if (!isMatch) {
         throw new Error('Invalid password');
     }

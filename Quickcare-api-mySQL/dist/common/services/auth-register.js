@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerUserService = void 0;
-const bcyptjs_1 = __importDefault(require("bcyptjsjs"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const mySQLconnect_1 = require("../../config.db/mySQLconnect");
 const generateIds_1 = require("../utils/generateIds");
 const generate_jwt_token_1 = require("../utils/generate-jwt-token");
@@ -40,7 +40,7 @@ const registerUserService = (username, email, password, role) => __awaiter(void 
         }
     }
     // Hash password
-    const hashedPassword = yield bcyptjs_1.default.hash(password, 10);
+    const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
     // Generate unique user ID
     const [rows] = yield mySQLconnect_1.db.query(`SELECT COUNT(*) as count FROM users WHERE role = ?`, [role]);
     const nextId = rows[0].count + 1;
