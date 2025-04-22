@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcyptjs from 'bcryptjs';
 import { db } from '../../config.db/mySQLconnect';
 import { generateToken } from '../utils/generate-jwt-token';
 
@@ -18,7 +18,7 @@ export const loginUserService = async (
   }
 
   const user = rows[0];
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcyptjs.compare(password, user.password);
   if (!isMatch) {
     throw new Error('Invalid password');
   }

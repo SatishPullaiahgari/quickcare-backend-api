@@ -1,0 +1,31 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.patientRoutes = void 0;
+const create_appoinment_1 = require("../controllers/create-appoinment");
+const verify_token_1 = require("../middleware/verify-token");
+const upcoimg_appointment_1 = require("../controllers/upcoimg-appointment");
+const express_1 = __importDefault(require("express"));
+const today_appointment_1 = require("../controllers/today-appointment");
+const past_appointments_1 = require("../controllers/past-appointments");
+const generate_precreption_1 = require("../controllers/generate-precreption");
+const download_precription_1 = require("../controllers/download-precription");
+const download_bill_1 = require("../controllers/download-bill");
+const vitalSigns_controller_1 = require("../controllers/vitalSigns.controller");
+const router = express_1.default.Router();
+// Create appointment route
+router.post('/vital-signs', vitalSigns_controller_1.createVitalSigns);
+router.get('/vital-signs/data', vitalSigns_controller_1.getRecentVitals);
+router.use(verify_token_1.verifyToken);
+router.post('/create-appointment', verify_token_1.verifyToken, create_appoinment_1.createAppointment);
+router.get('/appointments', upcoimg_appointment_1.getAppointments);
+router.get('/appointments/today', today_appointment_1.getTodaysAppointments);
+router.get('/appointments/past', past_appointments_1.getPastAppointments);
+router.post('/prescriptions', generate_precreption_1.createPrescription);
+router.get('/prescriptions/:prescription_id/download', download_precription_1.downloadPrescriptionPDF);
+router.get('/download-bill/:filename', download_bill_1.downloadBill);
+// router.post('/vital-signs', createVitalSigns);
+// router.get('/vital-signs/average', getAverageVitals);
+exports.patientRoutes = router;

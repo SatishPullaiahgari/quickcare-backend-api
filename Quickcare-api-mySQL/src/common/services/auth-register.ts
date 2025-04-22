@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcyptjs from 'bcryptjs';
 import { db } from '../../config.db/mySQLconnect';
 import { generateId } from '../utils/generateIds';
 import { generateToken } from '../utils/generate-jwt-token';
@@ -34,7 +34,7 @@ export const registerUserService = async (username: string, email: string, passw
   }
 
   // Hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcyptjs.hash(password, 10);
 
   // Generate unique user ID
   const [rows]: any = await db.query(`SELECT COUNT(*) as count FROM users WHERE role = ?`, [role]);
