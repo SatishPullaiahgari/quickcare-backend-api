@@ -26,7 +26,7 @@ exports.db = promise_1.default.createPool({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     waitForConnections: true,
-    connectionLimit: 100,
+    connectionLimit: 10000,
     queueLimit: 0
 });
 exports.default = exports.db;

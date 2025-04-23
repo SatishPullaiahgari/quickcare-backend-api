@@ -13,10 +13,12 @@ const calculateAverage = (arr: number[]): number => {
 
 export const createVitalSigns = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { patient_id, resting_heart_rate, performance_heart_rate } = req.body;
+
+    const patient_id = "PAT000002";
+    const { resting_heart_rate, performance_heart_rate } = req.body;
 
     if (
-      !patient_id ||
+     
       !Array.isArray(resting_heart_rate) || resting_heart_rate.length !== 20 ||
       !Array.isArray(performance_heart_rate) || performance_heart_rate.length !== 20
     ) {

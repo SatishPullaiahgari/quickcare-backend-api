@@ -19,9 +19,9 @@ const calculateAverage = (arr) => {
 };
 const createVitalSigns = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { patient_id, resting_heart_rate, performance_heart_rate } = req.body;
-        if (!patient_id ||
-            !Array.isArray(resting_heart_rate) || resting_heart_rate.length !== 20 ||
+        const patient_id = "PAT000002";
+        const { resting_heart_rate, performance_heart_rate } = req.body;
+        if (!Array.isArray(resting_heart_rate) || resting_heart_rate.length !== 20 ||
             !Array.isArray(performance_heart_rate) || performance_heart_rate.length !== 20) {
             return res.status(400).json({
                 message: 'patient_id and exactly 20 readings for both heart rate types are required.'
